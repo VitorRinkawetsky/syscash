@@ -34,7 +34,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#" title="Home" id="home_index_favorecido"><i class="fas fa-home"></i>
                                     <span>Home</span></a></li>
-                            <li class="breadcrumb-item"><a href="#" title="favorecido" id="favorecido_index"><i class="fas fa-tag"></i> <span>Favorecido</span></a></li>
+                            <li class="breadcrumb-item"><a href="#" title="Favorecido" id="Favorecido_index"><i class="fas fa-tag"></i> <span>Favorecido</span></a></li>
                             <li class="breadcrumb-item active" aria-current="page">Adicionar</li>
                         </ol>
                     </nav>
