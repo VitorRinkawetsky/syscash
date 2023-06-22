@@ -22,9 +22,12 @@ $(document).ready(function () {
 	//configurando validação dos dados digitados no cadastro/edição
 	$("#favorecido_dados").validate({
 		rules: {
-			descricao_favorecido: {
+			nome_favorecido: {
 				required: true
 			},
+			tipo_favorecido: {
+				required: true
+			}
 		},
 		highlight: function (element) {
 			$(element).addClass("is-invalid");
@@ -42,9 +45,12 @@ $(document).ready(function () {
 			}
 		},
 		messages: {
-			descricao_favorecido: {
+			nome_favorecido: {
 				required: "Este campo não pode ser vazio!"
 			},
+			tipo_favorecido: {
+				required: "Este campo não pode ser vazio!",
+			}
 		}
 	});
 
@@ -125,7 +131,7 @@ $(document).ready(function () {
 					pagina_favorecido: $("#pagina_favorecido").val(),
 					texto_busca_favorecido: $("#texto_busca_favorecido").val()
 				}, function () {
-					$("#div_mensagem_texto_favorecido").empty().append("Favorecido cadastrado!");
+					$("#div_mensagem_texto_favorecido").empty().append("favorecido cadastrada!");
 					$("#div_mensagem_favorecido").show();
 				});
 			},

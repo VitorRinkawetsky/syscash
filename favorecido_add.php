@@ -25,7 +25,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-start">
-                    <h4>Adicionar Favorecido</h4>
+                    <h4>Adicionar favorecido</h4>
                 </div>
                 <div class="col-md-4 d-flex justify-content-center">
                 </div>
@@ -34,7 +34,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#" title="Home" id="home_index_favorecido"><i class="fas fa-home"></i>
                                     <span>Home</span></a></li>
-                            <li class="breadcrumb-item"><a href="#" title="favorecido" id="favorecido_index"><i class="fas fa-tag"></i> <span>Favorecido</span></a></li>
+                            <li class="breadcrumb-item"><a href="#" title="favorecido" id="favorecido_index"><i class="fas fa-tag"></i> <span>favorecido</span></a></li>
                             <li class="breadcrumb-item active" aria-current="page">Adicionar</li>
                         </ol>
                     </nav>
@@ -68,7 +68,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                     <div class="tab-content" id="tabdados_favorecido">
                         <div class="tab-pane fade show active" id="dados_favorecido" role="tabpanel" aria-labelledby="dados_favorecido">
                             <div class="col-md-6">
-                                <label for="nome" class="form-label">Nome</label>
+                                <label for="nome" class="form-label">Descrição</label>
                                 <input type="text" class="form-control" id="nome_favorecido" name="nome_favorecido" maxlength="50" autofocus>
                             </div>
                             <div class="col-md-6">

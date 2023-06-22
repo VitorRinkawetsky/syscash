@@ -86,7 +86,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                             </h4>
                             <br>
                             <dl>
-                                <dt>Nome</dt>
+                                <dt>Descrição</dt>
                                 <dd>
                                     <?= isset($resultado["nome"]) ? $resultado["nome"] : ""; ?>
                                 </dd>

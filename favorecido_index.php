@@ -139,7 +139,8 @@ try {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nome</th>
+                                <th>Descri&ccedil;&atilde;o</th>
+                                <th>A&ccedil;&otilde;es</th>
                             </tr>
                         </thead>
                         <tbody>

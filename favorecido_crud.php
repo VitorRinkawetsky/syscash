@@ -119,7 +119,7 @@ function buscarfavorecido(int $id)
     try {
         $sql = "select * from favorecido where id = ?";
         $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
-        $pre = $conexao->prepare($sql);x
+        $pre = $conexao->prepare($sql);
         $pre->execute(array(
             $id
         ));
