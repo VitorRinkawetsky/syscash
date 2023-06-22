@@ -140,10 +140,10 @@ try {
                             <tr>
                                 <th>ID</th>
                                 <th>Descri&ccedil;&atilde;o</th>
-                                <th>Favorecido</th>
                                 <th>Valor R$</th>
                                 <th>Vencimento</th>
                                 <th>Categoria</th>
+                                <th>Favorecido</th>
                                 <th>A&ccedil;&otilde;es</th>
                             </tr>
                         </thead>
@@ -154,7 +154,6 @@ try {
                                 <tr id="<?php echo $conta['id'] . "_contapagar"; ?>">
                                     <td><?php echo $conta["id"]; ?></td>
                                     <td><?php echo $conta["descricao"]; ?></td>
-                                    <td><?php echo $conta["favorecido"]; ?></td>
                                     <td><?php echo number_format($conta["valor"], 2, ',', '.'); ?></td>
                                     <td><?php echo date("d/m/Y", strtotime($conta["data_vencimento"])); ?></td>
                                     <td><?php echo buscarCategoria($conta["categoria_id"])[0]["descricao"]; ?></td>

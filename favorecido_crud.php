@@ -18,7 +18,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
 
                 $registro = new stdClass();
                 $registro = json_decode($_POST['registro']);
-                validaDados($registro);
+                validaDadosFavorecido($registro);
 
                 $sql = "insert into favorecido(nome, tipo, usuario_id) VALUES (?, ?, ?) ";
                 $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
@@ -48,7 +48,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
 
                 $registro = new stdClass();
                 $registro = json_decode($_POST['registro']);
-                validaDados($registro);
+                validaDadosFavorecido($registro);
 
                 $sql = "update favorecido set nome = ? where id = ? ";
                 $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
@@ -133,7 +133,7 @@ function buscarfavorecido(int $id)
 }
 
 //consulta sem ajax
-function listarfavorecido()
+function listarFavorecido()
 {
     try {
         $usuario_id = isset($_SESSION["usuario_id"]) ? $_SESSION["usuario_id"] : 0;
@@ -175,3 +175,26 @@ function listarfavorecidoEntrada()
         $conexao = null;
     }
 }
+
+//consulta sem ajax
+function listarfavorecidoSaida()
+{
+    try {
+        $usuario_id = isset($_SESSION["usuario_id"]) ? $_SESSION["usuario_id"] : 0;
+
+        $sql = "select * from favorecido where usuario_id = ? and tipo = 2 order by nome";
+        $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
+        $pre = $conexao->prepare($sql);
+        $pre->execute(array(
+            $usuario_id
+        ));
+        $pre->execute();
+
+        return $pre->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        echo "Erro: " . $e->getMessage() . "<br>";
+    } finally {
+        $conexao = null;
+    }
+}
+?>

@@ -3,6 +3,7 @@ require_once("valida_acesso.php");
 ?>
 <?php
 require_once("categoria_crud.php");
+require_once("favorecido_crud.php");
 
 //a listagem de categoria é geral poderia ser filtrado por status
 if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
@@ -78,8 +79,14 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                                 <input type="text" class="form-control" id="descricao_contapagar" name="descricao_contapagar" maxlength="100" autofocus>
                             </div>
                             <div class="col-md-6">
-                                <label for="favorecido" class="form-label">Favorecido</label>
-                                <input type="text" class="form-control" id="favorecido_contapagar" name="favorecido_contapagar" maxlength="100">
+                            <label for="categoria_contapagar" class="form-label">Favorecidos</label><select name="favorecido_id_contapagar" id="favorecido_id_contapagar" class="form-select">
+                                    <?php
+                                    $favorecidos = listarFavorecidoSaida();
+                                    foreach ($favorecidos as $favorecido) {
+                                        echo "<option value='" . $favorecido["id"] . "'>" . $favorecido["nome"] . "</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="valor" class="form-label">Valor R$</label>
@@ -92,9 +99,9 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                                 <input type="date" class="form-control" id="datavencimento_contapagar" name="datavencimento_contapagar">
                             </div>
                             <div class="col-md-6">
-                                <label for="categoria_contapagar" class="form-label">Categoria</label><select name="categoria_id_contapagar" id="categoria_id_contapagar" class="form-select">
+                                <label for="categoria_contapagar" class="form-label">Categorias</label><select name="categoria_id_contapagar" id="categoria_id_contapagar" class="form-select">
                                     <?php
-                                    $categorias = listarCategoriaEntrada();
+                                    $categorias = listarCategoriaSaida();
                                     foreach ($categorias as $categoria) {
                                         echo "<option value='" . $categoria["id"] . "'>" . $categoria["descricao"] . "</option>";
                                     }

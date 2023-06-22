@@ -20,16 +20,16 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                 $registro = json_decode($_POST['registro']);
                 validaDados($registro);
 
-                $sql = "insert into conta_pagar(descricao, favorecido, valor, data_vencimento, categoria_id, usuario_id) VALUES (?, ?, ?, ?, ?, ?) ";
+                $sql = "insert into conta_pagar(descricao, valor, data_vencimento, categoria_id, usuario_id, favorecido_id) VALUES (?, ?, ?, ?, ?, ?) ";
                 $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
                 $pre = $conexao->prepare($sql);
                 $pre->execute(array(
                     $registro->descricao_contapagar,
-                    $registro->favorecido_contapagar,
                     $registro->valor_contapagar,
                     $registro->datavencimento_contapagar,
                     $registro->categoria_id_contapagar,
-                    $registro->usuario_id_contapagar
+                    $registro->usuario_id_contapagar,
+                    $registro->favorecido_id_contapagar
                 ));
                 print json_encode($conexao->lastInsertId());
             } catch (Exception $e) {

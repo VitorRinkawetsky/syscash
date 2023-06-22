@@ -139,7 +139,8 @@ try {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Descri&ccedil;&atilde;o</th>
+                                <th>Nome</th>
+                                <th>Tipo</th>
                                 <th>A&ccedil;&otilde;es</th>
                             </tr>
                         </thead>
@@ -150,6 +151,17 @@ try {
                                 <tr id="<?php echo $favorecido['id'] . "_favorecido"; ?>">
                                     <td><?php echo $favorecido["id"]; ?></td>
                                     <td><?php echo $favorecido["nome"]; ?></td>
+                                    <td><?php
+                                    if (isset($favorecido["tipo"])) {
+                                        if ($favorecido["tipo"] == 1) {
+                                            echo "Entrada";
+                                        } else {
+                                            echo "Saída";
+                                        }
+                                    } else {
+                                        echo "";
+                                    }
+                                    ?></td>
                                     <td>
                                         <a id="botao_view_favorecido" chave="<?php echo $favorecido['id']; ?>" class="btn btn-info btn-sm" title="Visualizar"><i class="fas fa-eye"></i></a>
                                         <a id="botao_editar_favorecido" chave="<?php echo $favorecido['id']; ?>" class="btn btn-success btn-sm" title="Editar"><i class="fas fa-edit"></i></a>
