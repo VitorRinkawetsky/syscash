@@ -2,20 +2,33 @@
 require_once("valida_acesso.php");
 ?>
 <?php
+require_once("conexao.php");
+
 if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
     try {
         $erros = [];
         $id = filter_input(INPUT_POST, "id_favorecido", FILTER_VALIDATE_INT);
-        $usuario_id = isset($_SESSION["usuario_id"]) ?  $_SESSION["usuario_id"] : 0;
         $pagina = filter_input(INPUT_POST, "pagina_favorecido", FILTER_VALIDATE_INT);
         $texto_busca = filter_input(INPUT_POST, "texto_busca_favorecido", FILTER_SANITIZE_STRING);
 
-        if (!isset($pagina)) {
-            $pagina = 1;
+        $sql = "select * from favorecido where id = ?";
+
+        $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
+
+        $pre = $conexao->prepare($sql);
+        $pre->execute(array(
+            $id
+        ));
+
+        $resultado = $pre->fetch(PDO::FETCH_ASSOC);
+        if (!$resultado) {
+            throw new Exception("Não foi possível realizar a consulta!");
         }
     } catch (Exception $e) {
         $erros[] = $e->getMessage();
         $_SESSION["erros"] = $erros;
+    } finally {
+        $conexao = null;
     }
 }
 ?>
@@ -25,7 +38,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-start">
-                    <h4>Adicionar Favorecido</h4>
+                    <h4>Editar favorecido</h4>
                 </div>
                 <div class="col-md-4 d-flex justify-content-center">
                 </div>
@@ -34,8 +47,8 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#" title="Home" id="home_index_favorecido"><i class="fas fa-home"></i>
                                     <span>Home</span></a></li>
-                            <li class="breadcrumb-item"><a href="#" title="favorecido" id="favorecido_index"><i class="fas fa-tag"></i> <span>Favorecido</span></a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Adicionar</li>
+                            <li class="breadcrumb-item"><a href="#" title="favorecido" id="favorecido_index"><i class="fas fas fa-tag"></i> <span>favorecido</span></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Editar</li>
                         </ol>
                     </nav>
                 </div>
@@ -68,21 +81,20 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                     <div class="tab-content" id="tabdados_favorecido">
                         <div class="tab-pane fade show active" id="dados_favorecido" role="tabpanel" aria-labelledby="dados_favorecido">
                             <div class="col-md-6">
-                                <label for="nome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome_favorecido" name="nome_favorecido" maxlength="50" autofocus>
+                                <label for="nome_favorecido" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome_favorecido" name="nome_favorecido" maxlength="50" value="<?php echo isset($resultado['nome']) ? $resultado['nome'] : ''; ?>" autofocus>
                             </div>
                             <div class="col-md-6">
-                                <input class="form-check-input" type="radio" name="tipo_favorecido" id="tipo_favorecido" value="1">
+                                <input class="form-check-input" type="radio" name="tipo_favorecido" id="tipo_favorecido" value="1" <?php echo (isset($resultado['tipo']) && $resultado['tipo'] == 1) ? 'checked' : ''; ?> disabled>
                                 <label class="form-check-label" for="tipo_favorecido">
                                     Entrada
                                 </label>
-                                <input class="form-check-input" type="radio" name="tipo_favorecido" id="tipo_favorecido" value="2">
+                                <input class="form-check-input" type="radio" name="tipo_favorecido" id="tipo_favorecido" value="2" <?php echo (isset($resultado['tipo']) && $resultado['tipo'] == 2) ? 'checked' : ''; ?> disabled>
                                 <label class="form-check-label" for="tipo_favorecido">
                                     Saída
                                 </label>
                             </div>
-                            <input type="hidden" id="id_favorecido" value="<?php echo isset($id) ? $id : '' ?>" />
-                            <input type="hidden" id="usuario_id_favorecido" name="usuario_id_favorecido" value="<?php echo isset($usuario_id) ? $usuario_id : '' ?>" />
+                            <input type="hidden" id="id_favorecido" name="id_favorecido" value="<?php echo isset($id) ? $id : '' ?>" />
                         </div>
                     </div>
                     <br>
