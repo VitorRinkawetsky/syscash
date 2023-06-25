@@ -20,7 +20,7 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                 $registro = json_decode($_POST['registro']);
                 validaDados($registro);
 
-                $sql = "insert into conta_pagar(descricao, valor, data_vencimento, categoria_id, usuario_id, favorecido_id) VALUES (?, ?, ?, ?, ?, ?) ";
+                $sql = "insert into conta_pagar(descricao, valor, data_vencimento, categoria_id, usuario_id, id_favorecido) VALUES (?, ?, ?, ?, ?, ?) ";
                 $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
                 $pre = $conexao->prepare($sql);
                 $pre->execute(array(
@@ -53,15 +53,15 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                 $registro = json_decode($_POST['registro']);
                 validaDados($registro);
 
-                $sql = "update conta_pagar set descricao = ?, favorecido = ?, valor = ?, data_vencimento = ?, categoria_id = ? where id = ? ";
+                $sql = "update conta_pagar set descricao = ?, valor = ?, data_vencimento = ?, categoria_id = ?,  id_favorecido = ? where id = ? ";
                 $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
                 $pre = $conexao->prepare($sql);
                 $pre->execute(array(
                     $registro->descricao_contapagar,
-                    $registro->favorecido_contapagar,
                     $registro->valor_contapagar,
                     $registro->datavencimento_contapagar,
                     $registro->categoria_id_contapagar,
+                    $registro->favorecido_id_contapagar,
                     $registro->id_contapagar
                 ));
                 print json_encode(1);
