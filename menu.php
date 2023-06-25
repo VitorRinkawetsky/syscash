@@ -139,7 +139,7 @@ require_once("valida_acesso.php");
         </div>
         <div class="modal-body">
           <p>Syscash - Sistema financeiro para fins educacionais do estudo da linguagem PHP</p>
-          <p>Desenvolvido por Johannes e Matheus - Desde 2022–<script>
+          <p>Desenvolvido por Vitor e Cassio - Desde 2023–<script>
               document.write(new Date().getFullYear())
             </script>
           </p>
