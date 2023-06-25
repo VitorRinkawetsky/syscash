@@ -4,6 +4,7 @@ require_once("valida_acesso.php");
 <?php
 require_once("conexao.php");
 require_once("categoria_crud.php");
+require_once("favorecido_crud.php");
 
 try {
     //verificando se é uma requisição post para efetuar a pesquisa específica e preparar paginação
@@ -31,7 +32,7 @@ try {
     $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
 
     //Sql para ser consultada
-    $sql = "select * from conta_receber where (id like :palavra or descricao like :palavra or favorecido like :palavra) and usuario_id = :id order by id asc ";
+    $sql = "select * from conta_receber where (id like :palavra or descricao like :palavra) and usuario_id = :id order by id asc ";
 
     // Codificação da paginação
     $pre_pagina = $conexao->prepare($sql);
@@ -140,10 +141,10 @@ try {
                             <tr>
                                 <th>ID</th>
                                 <th>Descri&ccedil;&atilde;o</th>
-                                <th>Favorecido</th>
                                 <th>Valor R$</th>
                                 <th>Vencimento</th>
                                 <th>Categoria</th>
+                                <th>Favorecido</th>
                                 <th>A&ccedil;&otilde;es</th>
                             </tr>
                         </thead>
@@ -154,10 +155,10 @@ try {
                                 <tr id="<?php echo $conta['id'] . "_contareceber"; ?>">
                                     <td><?php echo $conta["id"]; ?></td>
                                     <td><?php echo $conta["descricao"]; ?></td>
-                                    <td><?php echo $conta["favorecido"]; ?></td>
                                     <td><?php echo number_format($conta["valor"], 2, ',', '.'); ?></td>
                                     <td><?php echo date("d/m/Y", strtotime($conta["data_vencimento"])); ?></td>
                                     <td><?php echo buscarCategoria($conta["categoria_id"])[0]["descricao"]; ?></td>
+                                    <td><?php echo buscarFavorecido($conta["id_favorecido"])[0]["nome"]; ?></td>
                                     <td>
                                         <a id="botao_view_contareceber" chave="<?php echo $conta['id']; ?>" class="btn btn-info btn-sm" title="Visualizar"><i class="fas fa-eye"></i></a>
                                         <a id="botao_editar_contareceber" chave="<?php echo $conta['id']; ?>" class="btn btn-success btn-sm" title="Editar"><i class="fas fa-edit"></i></a>

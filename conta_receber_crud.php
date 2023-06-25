@@ -20,16 +20,16 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                 $registro = json_decode($_POST['registro']);
                 validaDados($registro);
 
-                $sql = "insert into conta_receber(descricao, favorecido, valor, data_vencimento, categoria_id, usuario_id) VALUES (?, ?, ?, ?, ?, ?) ";
+                $sql = "insert into conta_receber(descricao, valor, data_vencimento, categoria_id, usuario_id, id_favorecido) VALUES (?, ?, ?, ?, ?, ?) ";
                 $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
                 $pre = $conexao->prepare($sql);
                 $pre->execute(array(
                     $registro->descricao_contareceber,
-                    $registro->favorecido_contareceber,
                     $registro->valor_contareceber,
                     $registro->datavencimento_contareceber,
                     $registro->categoria_id_contareceber,
-                    $registro->usuario_id_contareceber
+                    $registro->usuario_id_contareceber,
+                    $registro->favorecido_id_contareceber
                 ));
                 print json_encode($conexao->lastInsertId());
             } catch (Exception $e) {
@@ -53,15 +53,15 @@ if (filter_input(INPUT_SERVER, "REQUEST_METHOD") === "POST") {
                 $registro = json_decode($_POST['registro']);
                 validaDados($registro);
 
-                $sql = "update conta_receber set descricao = ?, favorecido = ?, valor = ?, data_vencimento = ?, categoria_id = ? where id = ? ";
+                $sql = "update conta_receber set descricao = ?, valor = ?, data_vencimento = ?, categoria_id = ?, id_favorecido = ? where id = ? ";
                 $conexao = new PDO("mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA);
                 $pre = $conexao->prepare($sql);
                 $pre->execute(array(
                     $registro->descricao_contareceber,
-                    $registro->favorecido_contareceber,
                     $registro->valor_contareceber,
                     $registro->datavencimento_contareceber,
                     $registro->categoria_id_contareceber,
+                    $registro->favorecido_id_contareceber,
                     $registro->id_contareceber
                 ));
                 print json_encode(1);
